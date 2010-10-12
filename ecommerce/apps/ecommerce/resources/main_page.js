@@ -39,8 +39,8 @@ Ecommerce.mainPage = SC.Page.design({
             layout: { centerY: 0, right: 12, width: 90, height: 24 },
             title: 'View cart',
 
-            target: 'Ecommerce',
-            action: 'showCartContentPane'
+            target: 'Ecommerce.mainPage.cartContentPane',
+            action: 'append'
         })
     }),
 
@@ -85,8 +85,8 @@ Ecommerce.mainPage = SC.Page.design({
         closeButton: SC.ButtonView.design({
             layout: { right: 10, top: 10, width: 100, height: 24 },
             title: 'Close',
-            target: 'Ecommerce',
-            action: 'hideProductDetails'
+            target: 'Ecommerce.mainPage.productDetailPane',
+            action: 'remove'
         }),
 
         productName: SC.LabelView.design({
@@ -154,7 +154,8 @@ Ecommerce.mainPage = SC.Page.design({
        }),
     }),
 
-    reset: function() {
+    append: function() {
+        sc_super();
         var content = this.get('contentView');
         content.get('quantityInput').set('value', 0);
     }
@@ -179,8 +180,8 @@ Ecommerce.mainPage = SC.Page.design({
         closeButton: SC.ButtonView.design({
             layout: { right: 10, top: 10, width: 100, height: 24 },
             title: 'Close',
-            target: 'Ecommerce',
-            action: 'hideCartContentPane'        
+            target: 'Ecommerce.mainPage.cartContentPane',
+            action: 'remove'        
         }),
 
         captions: SC.View.design({

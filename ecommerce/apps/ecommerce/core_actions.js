@@ -1,6 +1,9 @@
 sc_require('core');
 
 Ecommerce.mixin({
+    /**
+    Populates the product tree view with the categories
+    */
     populateProductTreeController: function() {
        var rootNode = SC.Object.create({
             treeItemIsExpanded: YES,
@@ -15,21 +18,21 @@ Ecommerce.mixin({
         Ecommerce.productTreeController.set('content', rootNode);
     },
 
+    /**
+    Shows the product detail pane
+    */
     showProductDetails: function() {
         var selection = Ecommerce.productTreeNodeController.get('content')
-        if (selection && selection.kindOf(Ecommerce.Product)) {
-            var pane = Ecommerce.mainPage.getPath('productDetailPane');
-            pane.append();
-            pane.reset();
-        }
+        if (selection && selection.kindOf(Ecommerce.Product))
+            pane = Ecommerce.mainPage.getPath('productDetailPane').append();
     },
 
-    hideProductDetails: function() {
-        Ecommerce.mainPage.getPath('productDetailPane').remove();
-    },
-
+    /**
+    Add the current item to the cart (with the quantity specified in the quanity input field)
+    */
     addItemToCart: function() {
         var cart = Ecommerce.cartController.get('content');
+        // If the cart doesn't exist create it
         if (! cart)
         {
             cart = Ecommerce.store.createRecord(Ecommerce.Cart, { guid: 1, items: [] });
@@ -41,6 +44,9 @@ Ecommerce.mixin({
             var quantity = parseInt(Ecommerce.mainPage.getPath('productDetailPane').get('contentView').get('quantityInput').get('value'));
             var stock = Ecommerce.productTreeNodeController.get('currentStock');
             if (quantity > 0 && stock >= quantity) {
+                // Check if there is a corresponding cart item for the
+                // current product. If it does exist we will update the
+                // quantit of this product instead of adding another
                 var cartItem = product.get('cartItem');
                 if (cartItem)
                     quantity += cartItem.get('quantity');
@@ -64,13 +70,5 @@ Ecommerce.mixin({
             }
         }
     },
-
-    showCartContentPane: function() {
-        Ecommerce.mainPage.getPath('cartContentPane').append();
-    },
-
-    hideCartContentPane: function() {
-        Ecommerce.mainPage.getPath('cartContentPane').remove();
-    }
 });
 

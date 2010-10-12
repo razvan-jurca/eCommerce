@@ -60,6 +60,9 @@ Ecommerce.CartItemView = SC.ListItemView.extend(
         }
     }),
 
+    /**
+      Change render behaviour to include the childViews (render behavoiur from the SC.View class)
+      */
     render: function(context, firstTime) {
         if(firstTime)
             this.renderChildViews(context, firstTime);

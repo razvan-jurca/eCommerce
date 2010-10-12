@@ -5,25 +5,29 @@
 /*globals Ecommerce */
 
 /** @class
-
-  (Document Your Controller Here)
-
+  Handles the items that are in the cart
   @extends SC.ArrayController
 */
 Ecommerce.cartItemsArrayController = SC.ArrayController.create(
 /** @scope Ecommerce.cartItemsArrayController.prototype */ {
     contentBinding: 'Ecommerce.cartController.content.items',
 
-    hasItems: function() { return this.get('length') > 0; }.property('length'),
+    hasItems: function() {
+        return this.get('length') > 0;
+    }.property('length'),
 
     selectionArray: function() {
         return this.get('selection').map(function(item, index, enumerable) { return item; }, this);
     }.property('selection'),
 
     totalPrice: 0,
-
-    formatedTotalPrice: function() { return '%@ $'.fmt(this.get('totalPrice')); }.property('totalPrice'),
-
+    formatedTotalPrice: function() { 
+        return '%@ $'.fmt(this.get('totalPrice')); 
+    }.property('totalPrice'),
+    /**
+      Observers changes to the contents of the array to update the
+      total price of the items
+      */
     totalPriceObserver: function() {
         if (this.get('content')) {
             price = this.get('content').reduce(function(prev, item, idx, e) { return prev + item.get('totalPrice'); }, 0);

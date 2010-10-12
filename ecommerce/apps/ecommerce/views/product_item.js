@@ -31,6 +31,9 @@ Ecommerce.ProductItemView = SC.ListItemView.extend(
         textAlign: SC.ALIGN_RIGHT
     }),
 
+    /**
+      Change render behaviour depending on the type of the item
+      */
     render: function(context, firstTime) {
         if(this.get('content').kindOf(Ecommerce.Product))
         {

@@ -12,9 +12,12 @@ Ecommerce.productTreeNodeController = SC.ObjectController.create(
 /** @scope Ecommerce.productTreeNodeController.prototype */ {
     contentBinding: SC.Binding.single('Ecommerce.productTreeController.selection'),
 
-    // updated stock that considers the quantity of the current product that was added to the cart
+    /**
+      The current available stock considering
+      the ammount of the product that is already
+      in the cart.
+      */
     currentStock: 0,
-
     currentStockObserver:function() {
         var cartItem = this.get('cartItem');
         var stock = this.get('stock');

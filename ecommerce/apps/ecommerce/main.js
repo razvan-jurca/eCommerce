@@ -13,13 +13,7 @@
 //
 
 Ecommerce.main = function main() {
-
-  // Step 1: Instantiate Your Views
-  // The default code here will make the mainPane for your application visible
-  // on screen.  If you app gets any level of complexity, you will probably 
-  // create multiple pages and panes.  
   Ecommerce.getPath('mainPage.mainPane').append() ;
-
   Ecommerce.populateProductTreeController();
 } ;
 
