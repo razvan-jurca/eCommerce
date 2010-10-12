@@ -27,8 +27,6 @@ Ecommerce.Product = SC.Record.extend(
     }.property('price'),
 
     treeItemIsExpanded: NO,
-    treeItemChildren: function() { return null; }.property(),
-
-    itemView: function() { return Ecommerce.ProductItemView; }.property()
+    treeItemChildren: function() { return null; }.property()
 });
 

@@ -32,7 +32,12 @@ Ecommerce.ProductItemView = SC.ListItemView.extend(
     }),
 
     render: function(context, firstTime) {
-        if(firstTime)
-            this.renderChildViews(context, firstTime);
+        if(this.get('content').kindOf(Ecommerce.Product))
+        {
+            if(firstTime)     
+               this.renderChildViews(context, firstTime);
+        }
+        else
+            sc_super();
     }
 });

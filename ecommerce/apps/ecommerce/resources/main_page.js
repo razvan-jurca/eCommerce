@@ -52,10 +52,11 @@ Ecommerce.mainPage = SC.Page.design({
             contentValueKey: 'name',
             contentBinding: 'Ecommerce.productTreeController.arrangedObjects',
             selectionBinding: 'Ecommerce.productTreeController.selection',
-            contentExampleViewKey: 'itemView',
+            exampleView: Ecommerce.ProductItemView,
             target: 'Ecommerce',
             action: 'showProductDetails',
 
+            /*
             customRowHeightIndexes: function() {
                 return SC.IndexSet.create(0, this.get('length'));
             }.property('length'),
@@ -67,7 +68,9 @@ Ecommerce.mainPage = SC.Page.design({
                 if(item && item.kindOf(Ecommerce.Product))
                     return 50;
                 return 18;
-            }
+            },*/
+
+            rowHeight: 50
         })
     })
   }),
@@ -98,42 +101,51 @@ Ecommerce.mainPage = SC.Page.design({
 
         productImage: SC.ImageView.design({
             classNames: ['product-detail-image'],
-            layout: { left: 10, top: 50, width: 250, height: 250 },
+            layout: { left: 10, top: 40, width: 250, height: 250 },
             valueBinding: 'Ecommerce.productTreeNodeController.imgUrl'
         }),
 
-        productDescription: SC.ScrollView.design({
-            layout: { left: 280, top: 50, bottom: 50, right: 10 },
+        productDescription: SC.TextFieldView.design({
+            layout: { left: 275, top: 40, bottom: 36, right: 10 },
             hasHorizontalScroller: NO,
-            escapeHTML: NO,
-            
-            contentView: SC.LabelView.design({
-                classNames: ['product-detail-description'],
-                valueBinding: 'Ecommerce.productTreeNodeController.description'                
-            })
+            classNames: ['product-detail-description'],
+            valueBinding: 'Ecommerce.productTreeNodeController.description',
+
+            isTextArea: YES,
+
+            render: function(context, firstTime) {
+                sc_super();
+                var elem = context.element();
+                if (elem)
+                    this.invokeLast(function() {
+                            var textareas = elem.getElementsByTagName('textarea');
+                            if (textareas && textareas.length)
+                                textareas[0].setAttribute('readonly', 'true');
+                        });
+            }
         }),
 
         stockSummary: SC.LabelView.design({
-            layout: { left: 10, width: 100, bottom: 10, height: 16 },
+            layout: { left: 10, width: 100, bottom: 6, height: 16 },
             classNames: ['stock-summary'],
             fontWeight: SC.BOLD_WEIGHT,
             valueBinding: 'Ecommerce.productTreeNodeController.stockSummary',
         }),
 
         quantityLabel: SC.LabelView.design({
-            layout: { right: 135, width: 60, height: 16, bottom: 16},
+            layout: { right: 135, width: 60, height: 16, bottom: 12},
             textAlign: SC.ALIGN_RIGHT,
             value: 'Quantity:'
         }),
 
         quantityInput: SC.TextFieldView.design({
-            layout: { right: 100, height: 24, width: 30, bottom: 10 },
+            layout: { right: 100, height: 24, width: 30, bottom: 6 },
             validator: SC.Validator.Number.create({ places: 0 }),
             value: 0,
         }),
 
         submitButton: SC.ButtonView.design({
-            layout: { right: 10, bottom: 10, height: 24, width: 80 },
+            layout: { right: 10, bottom: 6, height: 24, width: 80 },
             title: 'Add to cart',
             isEnabledBinding: 'Ecommerce.productTreeNodeController.inStock',
 

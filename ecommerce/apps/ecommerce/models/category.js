@@ -20,7 +20,5 @@ Ecommerce.Category = SC.Record.extend(
     treeItemIsExpanded: NO,
     treeItemChildren: function() {
         return this.get('products').filterProperty('isVisible');
-    }.property(),
-
-    itemView: function() { return SC.ListItemView; }.property()
+    }.property()
 });
