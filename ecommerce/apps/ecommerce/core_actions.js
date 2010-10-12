@@ -64,7 +64,7 @@ Ecommerce.mixin({
                         Ecommerce.cartItemsArrayController.totalPriceObserver();
                         Ecommerce.cartController.itemsObserver();
                     });
-                this.hideProductDetails();
+                Ecommerce.mainPage.getPath('productDetailPane').remove();
             }   
             else {
             }
