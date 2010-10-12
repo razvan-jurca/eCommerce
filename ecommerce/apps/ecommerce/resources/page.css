@@ -1,0 +1,13 @@
+body
+{
+    min-width: 800px;
+    min-height: 500px;
+}
+
+.panel-design
+{
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+

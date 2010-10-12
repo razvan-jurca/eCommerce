@@ -1,0 +1,10 @@
+.stock-summary
+{
+    color: green;
+}
+
+.stock-summary-nostock
+{
+    color: red;
+}
+
