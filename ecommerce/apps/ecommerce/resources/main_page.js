@@ -130,6 +130,15 @@ Ecommerce.mainPage = SC.Page.design({
             classNames: ['stock-summary'],
             fontWeight: SC.BOLD_WEIGHT,
             valueBinding: 'Ecommerce.productTreeNodeController.stockSummary',
+            inStock: YES,
+            inStockBinding: 'Ecommerce.productTreeNodeController.inStock',
+
+            displayProperties: ['inStockBinding'],
+
+            render: function(context, firstTime) {
+                sc_super();
+                context.setClass('no-stock', !this.get('inStock'));
+            }
         }),
 
         quantityLabel: SC.LabelView.design({

@@ -3,7 +3,7 @@
     color: green;
 }
 
-.stock-summary-nostock
+.stock-summary.no-stock
 {
     color: red;
 }
