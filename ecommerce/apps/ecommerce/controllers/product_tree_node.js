@@ -23,19 +23,21 @@ Ecommerce.productTreeNodeController = SC.ObjectController.create(
     currentStockObserver:function() {
         var cartItem = this.get('cartItem');
         var stock = this.get('stock');
-        if (cartItem)
+        if (cartItem) {
             stock = stock - cartItem.get('quantity');
+        }
         this.set('currentStock', stock);
     }.observes('stock', '*cartItem.quantity'),
 
     inStock: function() {
         return this.get('currentStock') > 0;
-    }.property('currentStock'),
+    }.property('currentStock').cacheable(),
 
     stockSummary: function() {
-        if (this.get('inStock') == NO)
+        if (this.get('inStock') == NO) {
             return 'Out of stock';
+        }
         return 'Stock: %@'.fmt(this.get('currentStock'));
-    }.property('currentStock')
+    }.property('currentStock').cacheable()
 }) ;
 

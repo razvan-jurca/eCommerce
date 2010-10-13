@@ -247,7 +247,7 @@ Ecommerce.mainPage = SC.Page.design({
 
             totalPrice: SC.LabelView.design({
                 layout: { right: 40, top: 1, width: 90, height: 18 },
-                valueBinding: 'Ecommerce.cartItemsArrayController.formatedTotalPrice',
+                valueBinding: 'Ecommerce.cartController.formatedTotalPrice',
                 textAlign: SC.ALIGN_RIGHT
             })
         }),
