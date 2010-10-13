@@ -13,6 +13,8 @@ Ecommerce.mixin({
                 var categories = Ecommerce.store.find(categoryQuery);
                 return categories;
             }.property(),
+            //TODO [RJ]: sau mai bine itemView: SC.ListItemView
+            //TODO [RJ]: Atentie la virgulele in plus!
             itemView: function(){ return SC.ListItemView; }.property(),
         }); 
         Ecommerce.productTreeController.set('content', rootNode);
@@ -22,6 +24,7 @@ Ecommerce.mixin({
     Shows the product detail pane
     */
     showProductDetails: function() {
+      //TODO [RJ]: Nu uita sa pui ;
         var selection = Ecommerce.productTreeNodeController.get('content')
         if (selection && selection.kindOf(Ecommerce.Product))
             pane = Ecommerce.mainPage.getPath('productDetailPane').append();
@@ -41,6 +44,7 @@ Ecommerce.mixin({
 
         var product = Ecommerce.productTreeNodeController.get('content');
         if (product && product.kindOf(Ecommerce.Product)) {
+            //TODO [RJ]: getPath(a.b).get(c).get(d) === getPath(a.b.c.d). Si e mai eficient :)
             var quantity = parseInt(Ecommerce.mainPage.getPath('productDetailPane').get('contentView').get('quantityInput').get('value'));
             var stock = Ecommerce.productTreeNodeController.get('currentStock');
             if (quantity > 0 && stock >= quantity) {
@@ -49,9 +53,11 @@ Ecommerce.mixin({
                 // quantit of this product instead of adding another
                 var cartItem = product.get('cartItem');
                 if (cartItem)
+                //TODO [RJ]: Acolade peste tot, sa nu crape buildul.
                     quantity += cartItem.get('quantity');
                 else {
                     cartItem = Ecommerce.store.createRecord(Ecommerce.CartItem, { quantity: 0 });
+                    //TODO [RJ]: var, ca sa nu lasi variabile globale
                     guid = SC.generateGuid(cartItem);
                     cartItem.set('guid', guid);
                     cartItem.set('id', guid);
@@ -69,6 +75,7 @@ Ecommerce.mixin({
             else {
             }
         }
+        //TODO [RJ]: Atentie la virgulele in plus!
     },
 });
 

@@ -17,6 +17,8 @@ Ecommerce.productTreeNodeController = SC.ObjectController.create(
       the ammount of the product that is already
       in the cart.
       */
+      //TODO [RJ]: Parerea mea e ca si proprietatea asta si observerul sunt redundante, 
+      //puteai pur si simplu sa scazi din stock si sa setezi pe stock.
     currentStock: 0,
     currentStockObserver:function() {
         var cartItem = this.get('cartItem');

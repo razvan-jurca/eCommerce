@@ -24,6 +24,8 @@ Ecommerce.cartController = SC.ObjectController.create(
         if (content) {
             items = content.get('items');
             if (items)
+                //TODO [RJ]: Avem nevoie de acolade chiar si in jurul unei singure linii in if. Motivul e faptul ca se compacteaza codul cand
+                //se face deploymentul pe servere.
                 cnt = items.reduce(function(prevVal, item, idx, e) { return prevVal + item.get('quantity'); }, 0);
         }
 
@@ -34,6 +36,12 @@ Ecommerce.cartController = SC.ObjectController.create(
                     + (items && items.get('length') ?
                             ' With a total price of %@ $.'.fmt(Ecommerce.cartItemsArrayController.get('totalPrice')) 
                             : ''));
+    //TODO [RJ]: Chestia asta e super ineficienta pentru ca observi multe proprietati, faci chained observing si observi
+    //proprietati care nu sunt pe this. In plus, ai putea sa transformi metoda asta intr-un computed property, sau sa faci
+    //summary un computed property care sa depinde de chestiile astea si sa fie cacheable, pentru a reduce numarul de executii.
+    //Inca o chestie: Controllerele si contentul lor pot fi folosite interschimbabil. poti deci sa faci ceva de genul
+    //.property('items', '*items.length', 'Ecommerce*cartItemsArrayController.totalPrice')
+    //cred ca observerul pe *items.length e redundant si la fel mi se pare controllerul cartItemsArrayController. Scoate-l.
     }.observes('*content.items', '.content*items.length', 'Ecommerce*cartItemsArrayController.totalPrice'),
 
     /**
